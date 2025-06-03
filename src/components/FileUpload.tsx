@@ -39,7 +39,7 @@ const FileUpload: React.FC = () => {
               console.log('RAW upload response:', data);
               
               setTimeout(() => {
-                window.location.href = `${API_BASE}/document?id=${data.document.id}`;
+                window.location.href = `${process.env.REACT_APP_API_URL}/document?id=${data.document.id}`;
               }, 500); // Wait half a second to allow logs
 
             if (!response.ok) {
@@ -53,7 +53,6 @@ const FileUpload: React.FC = () => {
                 throw new Error(data.error || 'Upload failed or malformed response');
               }
               
-            window.location.href = `${API_BASE}/document?id=${data.document.id}`;
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Upload failed');
             setUploadStatus('');
