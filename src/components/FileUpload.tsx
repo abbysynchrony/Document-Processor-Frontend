@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 
+const API_BASE = process.env.REACT_APP_API_URL;
+
 const FileUpload: React.FC = () => {
     const [uploadStatus, setUploadStatus] = useState<string>('');
     const [error, setError] = useState<string>('');
@@ -23,7 +25,7 @@ const FileUpload: React.FC = () => {
             setUploadStatus('Uploading...');
             setError('');
 
-            const response = await fetch('http://localhost:5001/api/upload', {
+            const response = await fetch(`${API_BASE}/api/upload`, {
                 method: 'POST',
                 body: formData,
             });
@@ -37,7 +39,7 @@ const FileUpload: React.FC = () => {
               console.log('RAW upload response:', data);
               
               setTimeout(() => {
-                window.location.href = `http://localhost:5001/document?id=${data.document.id}`;
+                window.location.href = `${API_BASE}/document?id=${data.document.id}`;
               }, 500); // Wait half a second to allow logs
 
             if (!response.ok) {
@@ -51,7 +53,7 @@ const FileUpload: React.FC = () => {
                 throw new Error(data.error || 'Upload failed or malformed response');
               }
               
-            window.location.href = `http://localhost:5001/document?id=${data.document.id}`;
+            window.location.href = `${API_BASE}/document?id=${data.document.id}`;
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Upload failed');
             setUploadStatus('');

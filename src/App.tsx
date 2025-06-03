@@ -2,13 +2,15 @@ import React from 'react';
 import './App.css';
 import FileUpload from './components/FileUpload';
 
+const API_BASE = process.env.REACT_APP_API_URL;
+
 function App() {
   const handleReset = async () => {
     const confirmed = window.confirm('Are you sure you want to reset? This will clear your current session.');
     if (confirmed) {
       try {
         // Call backend reset endpoint
-        const response = await fetch('http://localhost:5001/reset', {
+        const response = await fetch(`${API_BASE}/reset`, {
           method: 'POST',
         });
         
