@@ -49,7 +49,7 @@ const FileUpload: React.FC = () => {
             }
 
             setUploadStatus('Upload successful!');
-            window.location.href = `${process.env.REACT_APP_API_URL}/document?id=${data.document.id}`;
+            window.location.href = `https://document-processor-production-27e2.up.railway.app/document?id=${data.document.id}`;
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Upload failed');
             setUploadStatus('');
