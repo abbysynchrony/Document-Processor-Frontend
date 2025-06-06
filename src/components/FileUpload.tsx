@@ -8,6 +8,8 @@ interface VulnInfo {
     description: string;
 }
 
+const API_BASE = process.env.REACT_APP_API_URL;
+
 const FileUpload: React.FC = () => {
     const [uploadStatus, setUploadStatus] = useState<string>('');
     const [error, setError] = useState<string>('');
@@ -32,7 +34,7 @@ const FileUpload: React.FC = () => {
             setError('');
             setVulnInfo(null);
 
-            const response = await fetch('http://localhost:5001/api/upload', {
+            const response = await fetch(`${API_BASE}/api/upload`, {
                 method: 'POST',
                 body: formData,
             });
@@ -49,7 +51,7 @@ const FileUpload: React.FC = () => {
             }
 
             setUploadStatus('Upload successful!');
-            window.location.href = `https://document-processor-production-27e2.up.railway.app/document?id=${data.document.id}`;
+            window.location.href = `${API_BASE}/document?id=${data.document.id}`;
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Upload failed');
             setUploadStatus('');
